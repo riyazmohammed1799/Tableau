@@ -184,44 +184,105 @@ All project automation, DDL, and verification scripts reside in [`scripts/`](fil
 
 ---
 
-## 8. Two-Track Project Roadmap Ahead
+## 8. Complete Test Suite Inventory & Quality Assurance Matrix
 
-### 🎯 Track 1: SQL Server EDW & Enterprise Tableau BI (Immediate Next Session)
-1. **Tier 1 SQL Engineering Exercises** (`sql_solutions/`):
-   - **Task 1: Annual Category Revenue & Margin Realization** (`task_01.sql`):
+The DentaKart Analytics platform maintains a rigorous, multi-tiered testing framework encompassing **174 total tests and evaluation milestones**, divided into automated system integrity gates and candidate-led technical milestones.
+
+### Part A: Automated System Integrity Tests (91 Tests — 100% Passed 🟢)
+
+| Category / Test Suite | File / Script | Checks Passed | Scope & Description |
+|---|---|:---:|---|
+| **Pre-Ingestion Data Quality & Referential Integrity Suite** | [`scripts/validate_data.py`](file:///c:/Users/riyaz/Tableau/scripts/validate_data.py) | **50 / 50** | **1. Schema & Null Checks (1–14)**: Primary keys unique and non-null across all 14 tables.<br>**2. Referential Integrity (15–24)**: Strict foreign key relationships linking sales to customers, products, orders, salespersons, locations, and dates.<br>**3. Financial Arithmetic (25–34)**: $Gross - Discount = Net$, $Net - COGS = Gross Profit$, tax rates.<br>**4. Domain Constraints (35–44)**: Discount rate thresholds, status values, dates 2021–2025.<br>**5. Geographic Distribution (45–50)**: Check V-06 remediation verifying balanced coverage across all 60 cities and 5 regions. |
+| **SQL Server EDW Ingestion & Ledger Validation Suite** | [`scripts/validate_sql_server.sql`](file:///c:/Users/riyaz/Tableau/scripts/validate_sql_server.sql) | **26 / 26** | **1. Table Row Counts (1–14)**: Verification of exactly 7,141,000 rows across 14 tables in `DentaKart_DW`.<br>**2. Financial Ledger Balance (15–18)**: Zero-variance proof for Net Revenue (₹1.01T), Gross Profit (₹205B), and Margin (20.22%).<br>**3. Referential Integrity (19–22)**: Zero orphan foreign keys across orders, sales, clinics, and locations.<br>**4. Storage & Performance (23–26)**: Baseline capture (1.1 GB DB size, 706 MB Fact_Sales). |
+| **Databricks Unity Catalog Lakehouse Reconciliation Suite** | [`scripts/databricks_bronze_step3_reconciliation.sql`](file:///c:/Users/riyaz/Tableau/scripts/databricks_bronze_step3_reconciliation.sql)<br>[`scripts/databricks_silver_step3_reconciliation.sql`](file:///c:/Users/riyaz/Tableau/scripts/databricks_silver_step3_reconciliation.sql) | **15 / 15** | **1. Per-Table Delta Parity (1–14)**: Row-by-row verification of all 14 Delta tables against source Parquet.<br>**2. Unified Rollup (15)**: Step 3 unioned CTE asserting exactly 7,141,000 actual vs 7,141,000 expected rows with **0 variance** across Bronze and Silver. |
+| **Total Automated Tests Certified** | — | **91 / 91 (100% Passed 🟢)** | Zero ledger variance, zero orphan records, 100% referential integrity across all engines. |
+
+---
+
+### Part B: Hands-on Practice, UAT & Evaluation Milestones Ahead (83 Milestones ⚪)
+
+| Category / Milestone Suite | File / Reference | Count | Scope & Focus Areas |
+|---|---|:---:|---|
+| **SQL Engineering Mastery (5 Difficulty Tiers)** | [`SQL_EXERCISES.md`](file:///c:/Users/riyaz/Tableau/SQL_EXERCISES.md) | **25 Tasks** | **Tier 1 (Tasks 1–5)**: Aggregate reporting, margin formulas, delivery lag, discount anomaly detection.<br>**Tier 2 (Tasks 6–10)**: Window functions (`DENSE_RANK`, `LAG`), rolling 90-day moving averages, RFM segmentation.<br>**Tier 3 (Tasks 11–15)**: 60-day cohort retention, quota attainment, webhook deduplication, market basket affinity.<br>**Tier 4 (Tasks 16–20)**: Warranty claim rates, inventory DOH, MTTR, quota streak analysis.<br>**Tier 5 (Tasks 21–25)**: Columnstore vs rowstore, SARGability, type conversion bottlenecks, Cartesian fan-out prevention. |
+| **Tableau Core Technical & Modeling Exercises** | [`TABLEAU_EXERCISES.md`](file:///c:/Users/riyaz/Tableau/TABLEAU_EXERCISES.md) | **12 Tasks** | **Tasks T-01 to T-02**: Logical Layer Relationships vs Physical Joins; Hyper Extract vs Live connection.<br>**Tasks T-03 to T-05**: Level of Detail (LOD) expressions (`FIXED` cohort, `EXCLUDE` benchmark, `INCLUDE` basket size).<br>**Tasks T-06 to T-09**: Tableau Order of Operations, Context Filters, Running Sums, MoM/YoY `LOOKUP`, Pareto 80/20.<br>**Tasks T-10 to T-12**: Parameter dynamic metric selectors, Top N with "Others" Sets, Asymmetric drill-down set actions. |
+| **Production Enterprise Dashboards** | Phases 8–9 Architecture | **8 Dashboards** | 1. Executive Sales & Margin Overview<br>2. Regional Sales & Territory Performance<br>3. Customer Intelligence & Cohort Retention<br>4. Product Portfolio & Return Rate Analysis<br>5. Inventory Health & Supply Chain Operations<br>6. Capital Equipment & Service Contract Lifecycle<br>7. Financial Audit & Discount Leakage Control<br>8. Operations Control Tower & SLA Fulfillment |
+| **User Acceptance Testing (UAT) Sign-Off Matrix** | [`UAT_TEST_CASES.md`](file:///c:/Users/riyaz/Tableau/UAT_TEST_CASES.md) | **14 Cases** | **UAT-001 to UAT-006**: Financial & Operational Ledger Sign-off (Net sales BAN, margin conservation, order distinctness, target anti-fan-out, returns).<br>**UAT-007 to UAT-010**: Interactivity verification (Date horizons, map drill-downs, Top N parameters, margin sliders).<br>**UAT-011 to UAT-014**: Dynamic Row-Level Security verification (North Director, West Director, NSD, Field Rep). |
+| **5-YOE Senior Technical Interview Simulation** | [`INTERVIEW_QUESTION_BANK.md`](file:///c:/Users/riyaz/Tableau/INTERVIEW_QUESTION_BANK.md) | **24 Scenarios** | **Domain 1 (5)**: Multi-fact modeling, grain discrepancies, fan-out mitigation.<br>**Domain 2 (4)**: SQL Server engine internals, Columnstore indexes, memory grants, SARGability.<br>**Domain 3 (4)**: Tableau Logical Layer, Order of Operations, FIXED/INCLUDE/EXCLUDE LODs.<br>**Domain 4 (3)**: Table calculations addressing vs partitioning, late filtering.<br>**Domain 5 (4)**: Performance tuning, Hyper extracts vs Live, mark volume reduction.<br>**Domain 6 (4)**: Dynamic RLS, Lakehouse vs EDW architecture, production incident triage. |
+| **Total Practice & Assessment Milestones Ahead** | — | **83 Milestones** | Structured hands-on implementation and 5-point evaluation rubrics. |
+
+---
+
+### Grand Total Platform Verification Matrix
+$$\mathbf{91\text{ Automated Tests Passed}} + \mathbf{83\text{ Practice/UAT Milestones Ahead}} = \mathbf{174\text{ Total Verification Steps}}$$
+
+---
+
+## 9. Granular Two-Track Plan of Action (Step-by-Step Roadmap Ahead)
+
+### 🎯 Track 1: Project 1 — SQL Server EDW & Enterprise Tableau BI (Immediate Next Session)
+
+```
+[ DentaKart_DW (SQL Server) ]
+             │
+             ├── Stage 1: Tier 1 SQL Mastery (Tasks 1–5 in sql_solutions/)
+             ├── Stage 2: Tiers 2–5 Advanced SQL (Tasks 6–25)
+             ├── Stage 3: Star Schema Clustered Columnstore Indexes & Marts (Phases 6–7)
+             ├── Stage 4: Tableau Core Modeling, LODs & Calculations (Phase 8, Tasks T-01 to T-12)
+             ├── Stage 5: 8 Production Enterprise Dashboards (Phase 9)
+             ├── Stage 6: Performance Optimization, Hyper Extracts & Dynamic RLS (Phases 10–11)
+             └── Stage 7: UAT 14-Point Sign-Off & 5-YOE Mock Interview Drills (Phases 12–13)
+```
+
+1. **Stage 1 — Tier 1 SQL Engineering Exercises** (`sql_solutions/`):
+   - **Task 1: Annual Category Revenue & Margin Realization** ([`sql_solutions/task_01.sql`](file:///c:/Users/riyaz/Tableau/sql_solutions/task_01.sql)):
      - Calculate volume, gross sales, discounts, net sales, gross profit, and margin % by Year and Category (excluding cancelled orders).
-     - Guard against naive averages of percentages; compute true weighted margin from financial sums.
-   - **Task 2: Tier-wise City Penetration & Discount Distribution** (`task_02.sql`):
+     - Guard against naive averages of percentages; compute true weighted margin: `(SUM(gross_profit_inr) / SUM(net_sales_inr)) * 100`.
+   - **Task 2: Tier-wise City Penetration & Discount Distribution** ([`sql_solutions/task_02.sql`](file:///c:/Users/riyaz/Tableau/sql_solutions/task_02.sql)):
      - City tiers (`Tier 1`, `Tier 2`, `Tier 3`) volume vs discount correlation. Active buying clinics count in 2025 using conditional aggregation.
-   - **Task 3: Omnichannel Sales Performance & Delivery Lag** (`task_03.sql`):
+   - **Task 3: Omnichannel Sales Performance & Delivery Lag** ([`sql_solutions/task_03.sql`](file:///c:/Users/riyaz/Tableau/sql_solutions/task_03.sql)):
      - Channel order volume, net revenue, fulfillment turnaround (`DATEDIFF`), and cancellation rate % with `NULL` shipping date handling.
-   - **Task 4: High-Discount Anomaly Audit (Tier Leakage Detection)** (`task_04.sql`):
+   - **Task 4: High-Discount Anomaly Audit (Tier Leakage Detection)** ([`sql_solutions/task_04.sql`](file:///c:/Users/riyaz/Tableau/sql_solutions/task_04.sql)):
      - Identify sales transactions exceeding customer tier allowances (Platinum >25%, Gold >15%, Standard >8%, Value >5%) and compute revenue leakage.
-   - **Task 5: Warehouse Fulfillment & Product Returns Breakdown** (`task_05.sql`):
+   - **Task 5: Warehouse Fulfillment & Product Returns Breakdown** ([`sql_solutions/task_05.sql`](file:///c:/Users/riyaz/Tableau/sql_solutions/task_05.sql)):
      - Return rate % and net refunds by Warehouse and Category (`HAVING SUM(returned_quantity) > 1000`).
-2. **Subsequent SQL Tiers (Tiers 2 to 5)**:
-   - Window functions (`DENSE_RANK`, `LAG`, rolling moving averages).
-   - Cohort analysis (60-day repurchase retention, market basket co-purchase affinity).
+2. **Stage 2 — Advanced SQL Engineering (Tiers 2 to 5)**:
+   - Window functions (`DENSE_RANK`, `LAG`, rolling 90-day moving averages, RFM customer segmentation).
+   - Cohort retention analytics (60-day repurchase rate, market basket co-purchase affinity).
    - Query tuning (SARGability, execution plans, clustered columnstore indexing benchmarks).
-3. **Tableau Enterprise BI Suite (Phases 8–11)**:
-   - Logical Layer modeling avoiding fan-out across multiple grains ("Noodles").
-   - Authoring calculated fields, Level of Detail expressions (`FIXED`, `INCLUDE`, `EXCLUDE`).
-   - Building the 8 production executive and operational dashboards.
-   - Dynamic Row-Level Security (RLS) via User Entitlement tables.
+3. **Stage 3 — Dimensional Data Modeling & Reporting Marts (Phases 6–7)**:
+   - Defend star schema grains and author clustered columnstore indexed analytical views in `DentaKart_DW`.
+4. **Stage 4 — Tableau Core Calculations & LOD Modeling (Phase 8)**:
+   - Establish Logical Layer Relationships ("noodles") to prevent fan-out across multiple grains.
+   - Author LOD expressions (`FIXED`, `INCLUDE`, `EXCLUDE`) and dynamic parameter controls (`TABLEAU_EXERCISES.md`).
+5. **Stage 5 — Enterprise BI Dashboards (Phase 9)**:
+   - Build 8 production executive and operational dashboards with consistent design system and interactivity.
+6. **Stage 6 — Performance Optimization & Dynamic RLS (Phases 10–11)**:
+   - Benchmark Hyper extract vs Live query performance using Tableau Performance Recorder.
+   - Author and validate dynamic Row-Level Security (RLS) via User Entitlement tables and `USERNAME()`.
+7. **Stage 7 — UAT Ledger Sign-off & Mock Technical Interview (Phases 12–13)**:
+   - Execute the 14 UAT test cases (`UAT_TEST_CASES.md`) for zero-variance ledger sign-off.
+   - Conduct 1-by-1 evaluation across 24 senior interview scenarios (`INTERVIEW_QUESTION_BANK.md`) with 5-point rubrics.
 
-### 🚀 Track 2: Databricks Lakehouse Medallion Pipeline (Project 2 Track)
-1. **Silver Layer Engineering**:
-   - Schema enforcement: Typed casting (`STRING` dates → `DATE`, `DOUBLE` revenue/cost → `DECIMAL(14,2)`).
-   - Ingestion timestamps (`_silver_ingested_at`), null handling, and surrogate key validation.
-2. **Data Modeling & Semantic Architecture**:
-   - Star schema dimension/fact modeling in Delta Lake.
-   - Conformed dimensions validation and anti-fan-out grain checks.
-3. **Gold Layer Analytical Marts**:
-   - High-performance analytical marts optimized via Delta Lake Liquid Clustering and Z-Ordering.
-4. **BI Connectivity & Performance Benchmark**:
+---
+
+### 🚀 Track 2: Project 2 — Databricks Lakehouse Medallion Pipeline
+
+```
+[ Volumes raw_files/ ] ──> [ Bronze Delta (14 tables) ] ──> [ Silver Cleaned/Typed ] ──> [ Gold Marts ] ──> [ Tableau BI ]
+```
+
+1. **Stage 1 — Silver Layer Engineering (Data Cleaning & Typed Casting)**:
+   - Schema enforcement: Typed casting (`STRING` dates → `DATE`/`TIMESTAMP`, `DOUBLE` revenue/cost → `DECIMAL(14,2)`).
+   - Ingestion metadata (`_silver_ingested_at`), null handling, and surrogate key validation across all 14 Silver tables.
+2. **Stage 2 — Semantic Dimensional Data Model & Grain Checks**:
+   - Star schema dimension and fact modeling in Delta Lake.
+   - Conformed dimensions validation and multi-grain anti-fan-out checks (Orders vs Quotas vs Returns vs Inventory).
+3. **Stage 3 — Gold Layer Analytical Marts**:
+   - Build high-performance analytical marts optimized via Delta Lake Liquid Clustering and Z-Ordering (`OPTIMIZE ... ZORDER BY (clinic_id, order_date)`).
+4. **Stage 4 — Tableau BI Connectivity & Benchmarking**:
    - Direct connection from Databricks Serverless SQL Warehouse to Tableau.
    - Live query latency benchmarking comparing Databricks Lakehouse against SQL Server EDW.
 
 ---
 
-*Certified and logged in `PROGRESS.md`, `DATABRICKS_BRONZE_INGESTION_REPORT.md`, `MISTAKES_AND_LEARNINGS.md`, and tracked in GitHub repository `riyazmohammed1799/Tableau`.*
+*Certified and logged in `PROGRESS.md`, `VALIDATION_REPORT.md`, `DATABRICKS_BRONZE_INGESTION_REPORT.md`, `MISTAKES_AND_LEARNINGS.md`, and tracked in GitHub repository `riyazmohammed1799/Tableau`.*

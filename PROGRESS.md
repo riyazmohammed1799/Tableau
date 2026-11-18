@@ -8,7 +8,10 @@
 * **Current Phase**: Phase 3 — Core & Advanced SQL Engineering Exercises (🟡 IN PROGRESS — Database Loaded & Verified)
 * **Target Role**: Senior Tableau Developer (5-Year Experience)
 * **Execution Roadmap**: Track A (SQL Server EDW → Tableau) first, followed by Track B (Databricks Lakehouse replication & benchmarking)
-* **Dataset Scale Generated**: **5,000,000 Sales Transaction Lines** across **1,250,000 Orders** (2021 – 2025)
+* **Dataset Scale Generated**: **5,000,000 Sales Transaction Lines** across **1,250,000 Orders** (7,141,000 total rows across 14 tables)
+* **System Testing Integrity**: **91 / 91 Automated Tests Passed (100% 🟢)** (50 pre-load checks, 26 SQL Server checks, 15 Databricks reconciliation checks)
+* **Evaluation Milestones Ahead**: **83 Milestones ⚪** (25 SQL tasks, 12 Tableau tasks, 8 dashboards, 14 UAT test cases, 24 interview scenarios)
+* **Total Platform Verification Suite**: **174 Total Tests & Milestones**
 
 ---
 
