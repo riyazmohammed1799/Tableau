@@ -1,0 +1,33 @@
+# Data files (1.56 GB of clean/dirty CSV and Parquet files generated locally)
+data/
+*.csv
+*.parquet
+*.chunk.parquet
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Database files & logs
+*.mdf
+*.ldf
+*.bak
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
