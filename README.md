@@ -55,6 +55,7 @@ This project is built on a **Dual-Track Enterprise Data Architecture**, executed
 ---
 
 ## Project Documentation Navigation
+* [PROJECT_SUMMARY.md](file:///c:/Users/riyaz/Tableau/PROJECT_SUMMARY.md): Executive Summary, Architecture & Parity Matrix
 * [PROJECT_PLAN.md](file:///c:/Users/riyaz/Tableau/PROJECT_PLAN.md): Detailed 14-Phase Roadmap
 * [BUSINESS_REQUIREMENTS.md](file:///c:/Users/riyaz/Tableau/BUSINESS_REQUIREMENTS.md): Business Objectives, Stakeholders, KPIs & Acceptance Criteria
 * [DATA_DICTIONARY.md](file:///c:/Users/riyaz/Tableau/DATA_DICTIONARY.md): Complete Data Dictionary & Schema Definitions (5M Scale)
